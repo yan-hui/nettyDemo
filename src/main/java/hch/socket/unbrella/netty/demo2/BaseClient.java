@@ -12,7 +12,7 @@ import io.netty.handler.codec.string.StringDecoder;
 
 public class BaseClient {
     static final String HOST = System.getProperty("host", "127.0.0.1");
-    static final int PORT = Integer.parseInt(System.getProperty("port", "8081"));
+    static final int PORT = Integer.parseInt(System.getProperty("port", "8088"));
     static final int SIZE = Integer.parseInt(System.getProperty("size", "256"));
 
     public static void main(String[] args) {
@@ -29,7 +29,7 @@ public class BaseClient {
                         }
                     });
             ChannelFuture future = bootstrap.connect(HOST, PORT).sync();
-            future.channel().writeAndFlush("0101我是02，听到请回答！");
+//            future.channel().writeAndFlush("0101我是02，听到请回答！");
             future.channel().closeFuture().sync();
         } catch (InterruptedException e) {
             e.printStackTrace();

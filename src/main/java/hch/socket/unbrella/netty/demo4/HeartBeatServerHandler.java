@@ -5,6 +5,8 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.handler.timeout.IdleState;
 import io.netty.handler.timeout.IdleStateEvent;
 
+import java.net.SocketAddress;
+
 public class HeartBeatServerHandler extends ChannelInboundHandlerAdapter {
     private int lost_connect_time = 0;
 
@@ -12,6 +14,17 @@ public class HeartBeatServerHandler extends ChannelInboundHandlerAdapter {
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         System.out.println("服务端读取通道........");
         System.out.println(ctx.channel().remoteAddress() + "->Server: " + String.valueOf(msg));
+        SocketAddress socketAddress = ctx.channel().remoteAddress();
+        String ipAndPort = String.valueOf(socketAddress);
+        System.out.println("sssss-->"+ipAndPort);
+        int index = ipAndPort.indexOf("/");
+        if (index!=-1){
+            String substring = ipAndPort.substring(index+1);
+        }else{
+
+        }
+
+
     }
 
     @Override

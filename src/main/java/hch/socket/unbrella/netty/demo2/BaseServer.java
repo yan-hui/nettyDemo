@@ -8,7 +8,7 @@ import io.netty.channel.ChannelPipeline;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.handler.codec.FixedLengthFrameDecoder;
+import io.netty.handler.codec.LineBasedFrameDecoder;
 import io.netty.handler.codec.string.StringDecoder;
 
 import java.net.InetSocketAddress;
@@ -33,9 +33,9 @@ public class BaseServer {
                         @Override
                         protected void initChannel(SocketChannel channel) throws Exception {
                             ChannelPipeline pip = channel.pipeline();
-//                            pip.addLast(new LineBasedFrameDecoder(2048));
+                            pip.addLast(new LineBasedFrameDecoder(2048));
                             //定长数据帧的解码器
-                            pip.addLast(new FixedLengthFrameDecoder(21));
+//                            pip.addLast(new FixedLengthFrameDecoder(21));
                             pip.addLast(new StringDecoder());
                             pip.addLast(new BaseServerHandler());
                         }

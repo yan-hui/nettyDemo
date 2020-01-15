@@ -1,7 +1,6 @@
 package hch.socket.unbrella.netty.demo2;
 
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
+import com.alibaba.fastjson.JSONObject;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
@@ -9,7 +8,11 @@ public class BaseClientHandler extends ChannelInboundHandlerAdapter {
     private byte[] req;
 
     public BaseClientHandler() {
-        req = ("这个东西很不错").getBytes();
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("s","060101190101013699");
+        jsonObject.put("u","4");
+        System.out.println(jsonObject.toJSONString());
+        req = jsonObject.toJSONString().getBytes();
       /*  req = ("In this chapter you general, we recommend Java Concurrency in Practice by Brian Goetz. His book w"
                 + "ill give We’ve reached an exciting point—in the next chapter we’ll discuss bootstrapping, the process "
                 + "of configuring and connecting all of Netty’s components to bring your learned about threading models in ge"
@@ -26,12 +29,16 @@ public class BaseClientHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        ByteBuf message = null;
-        for (int i=0;i<100;i++){
-            message = Unpooled.buffer(req.length);
-            message.writeBytes(req);
-            ctx.writeAndFlush(message);
-        }
+//        ByteBuf message = null;
+//        for (int i=0;i<100;i++){
+//            message = Unpooled.buffer(req.length);
+//            message.writeBytes(req);
+//            ctx.writeAndFlush(message);
+//        }
+        String message = "060101190101013704::HTTP/1.1 200 OK\n" +
+                "Date:Wed, 15 Jan 2020 07:04:39 GMT\n" +
+                "Content-Length:59\n";
+        ctx.writeAndFlush(message);
     /*    message = Unpooled.buffer(req.length);
         message.writeBytes(req);
         ctx.writeAndFlush(message);
